@@ -9,17 +9,9 @@ export type LexEntry = {
 };
 
 export async function getLexicon(): Promise<LexEntry[]> {
+  await seedLexiconIfNeeded();
   const raw = await redisHGetAll('wisp:lexicon');
   const entries: LexEntry[] = [];
-
-  if (!raw || Object.keys(raw).length === 0) {
-    return SEED_LEXICON.map((name) => ({
-      name,
-      note: 'it has always been here.',
-      cycle: 0,
-    }));
-  }
-
   for (const key of Object.keys(raw)) {
     try {
       entries.push(JSON.parse(raw[key]));
@@ -30,15 +22,16 @@ export async function getLexicon(): Promise<LexEntry[]> {
   return entries;
 }
 
-export async function seedLexiconIfEmpty() {
-  const raw = await redisHGetAll('wisp:lexicon');
-  if (raw && Object.keys(raw).length > 0) return;
+export async function seedLexiconIfNeeded() {
   for (const name of SEED_LEXICON) {
-    await redisHSet(
-      'wisp:lexicon',
-      name,
-      JSON.stringify({ name, note: 'it has always been here.', cycle: 0 })
-    );
+    const exists = await redisHGet('wisp:lexicon', name);
+    if (!exists) {
+      await redisHSet(
+        'wisp:lexicon',
+        name,
+        JSON.stringify({ name, note: 'it has always been here.', cycle: 0 })
+      );
+    }
   }
 }
 

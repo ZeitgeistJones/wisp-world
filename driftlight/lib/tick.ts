@@ -1,10 +1,10 @@
 import { redisGet, redisSet, redisLRange, redisDel, redisRPush } from './redis';
 import { SCAFFOLD, INITIAL_STATE, buildFusionPrompt } from './world';
-import { seedLexiconIfEmpty } from './lexicon';
+import { seedLexiconIfNeeded } from './lexicon';
 import { callClaude } from './anthropic';
 
 export async function runTick() {
-  await seedLexiconIfEmpty();
+  await seedLexiconIfNeeded();
 
   const stateRaw = await redisGet('wisp:world:state');
   const state = stateRaw ? JSON.parse(stateRaw as string) : INITIAL_STATE;
@@ -49,7 +49,7 @@ export async function runTick() {
     id: nextCycle,
     timestamp: Date.now(),
     beat: parsed.beat,
-    reaction: parsed.reaction,
+    murmur: parsed.murmur || parsed.reaction || '',
     submissionCount: submissions.length,
     discoveries,
   };

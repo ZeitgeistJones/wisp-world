@@ -70,12 +70,12 @@ things newly discovered in the world this cycle (these have just come into exist
 ${discoveryBlock}
 
 task:
-synthesize the submissions and the new discoveries into ONE coherent next story beat, 2-4 sentences, third person, quiet literary style. honor as many as you reasonably can without producing something incoherent. if they genuinely conflict in tone, favor coherence over inclusion - blend or downweight rather than jam every fragment in literally. if there is nothing at all, advance the baseline scaffold naturally on your own.
+synthesize the submissions and the new discoveries into ONE coherent next story beat. ONE sentence only, third person, quiet literary style. honor as many inputs as you reasonably can without producing something incoherent. if there is nothing at all, advance the baseline scaffold naturally on your own.
 
-then write wisp's in-character reaction - one to two sentences, first person, like a private diary thought. wisp has no idea any of this was shaped by outside visitors and must never hint at being watched or influenced. wisp reacts like a real person encountering real events, with continuity of personality across cycles.
+then write wisp's murmur - a single short fragment, first person, the kind of half-thought you mutter to yourself. NOT a diary entry. NOT a full sentence. just a fragment - like "...the soil knows something" or "wrong smell again" or "why won't anyone look at it". wisp has no idea any of this was shaped by outside visitors.
 
 respond ONLY with valid JSON, no markdown fences:
-{"beat": "...", "reaction": "...", "sceneSummary": "...", "characterMood": "..."}
+{"beat": "...", "murmur": "...", "sceneSummary": "...", "characterMood": "..."}
 
-sceneSummary: one short sentence snapshot of where things stand now. characterMood: one to three words.`;
+sceneSummary: one short sentence. characterMood: one to three words.`;
 }
